@@ -1,0 +1,53 @@
+apply plugin: 'java-library'
+//apply plugin: 'maven'
+
+
+repositories {
+    google()
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    //gradle sdk
+    implementation gradleApi()
+    //groovy sdk
+    implementation localGroovy()
+
+    implementation 'org.ow2.asm:asm:7.2'
+    implementation 'org.ow2.asm:asm-util:7.2'
+    implementation 'org.ow2.asm:asm-commons:7.2'
+    implementation 'com.android.tools.build:gradle:3.6.4'
+    implementation 'com.squareup:javapoet:1.13.0'
+    implementation "cn.huolala:dynamic_res_base:1.1.2"
+}
+
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            repository(url: uri(maven_repository_url)) {
+//                authentication(userName: maven_user_name, password: maven_password)
+//            }
+//            pom.groupId = maven_group_id
+//            pom.artifactId = maven_plugin_artifact_id
+//            pom.version = maven_plugin_version
+//        }
+//    }
+//}

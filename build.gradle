@@ -6,7 +6,7 @@ buildscript {
     properties.load(inputStream)
     //local.properties 中增加depMavenAar=false 本地编译不实用maven
     ext.depMavenAar = properties.getProperty("depMavenAar") ?properties.getProperty("depMavenAar").toBoolean(): true
-
+    ext.useBuildSrc = properties.getProperty("useBuildSrc") ?properties.getProperty("useBuildSrc").toBoolean(): true
     repositories {
         google()
         mavenCentral()
@@ -14,10 +14,8 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.2"
-        classpath "cn.huolala:dynamic_res_plugin:${maven_plugin_version}"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        // 使用buildSrc源码依赖
+//        classpath "cn.huolala:dynamic_res_plugin:${maven_plugin_version}"
     }
 }
 

@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         mFontTv = findViewById(R.id.font_tv);
         mIvCar = findViewById(R.id.ivCar);
         mContentTv = findViewById(R.id.content);
+        TextView sysSoDir = findViewById(R.id.sys_so_dir);
+        sysSoDir.setText("内置apk安装后so的路径:\n" + getApplicationInfo().nativeLibraryDir);
 
         //预加载 so
         new PreDynamicLoadJob().init(this);

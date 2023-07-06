@@ -25,11 +25,19 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    ndkVersion '21.1.6352462'
 }
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation "com.getkeepsafe.relinker:relinker:1.4.1"
+    //用来测试的so
+    implementation 'com.baidu.lbsyun:BaiduMapSDK_Util:7.5.0'
+    implementation "com.baidu.lbsyun:BaiduMapSDK_Map:7.5.0"
+    implementation "com.baidu.lbsyun:BaiduMapSDK_Search:7.5.0"
+    implementation "com.baidu.lbsyun:BaiduMapSDK_Location:9.3.0@aar"
+
     api project(':sample_native_lib')
     if (depMavenAar){
         api "cn.huolala:dynamic_res_core:$maven_res_version"

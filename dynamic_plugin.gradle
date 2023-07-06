@@ -68,7 +68,7 @@ def createOrGetInputSinglePath() {
 
 boolean isReleaseBuildType() {
     for (String s : gradle.startParameter.taskNames) {
-        println("isReleaseBuildType name "+s)
+        println("isReleaseBuildType name " + s)
         if (s.contains("Release") | s.contains("release")) {
             return true
         }
@@ -94,9 +94,9 @@ ext {
             //是否自动上传所有资源，上传方法为dynamic_upload
             is_upload_res          : false,
             //插件是否工作在Release模式下
-            is_release_type : isReleaseBuildType(),
+            is_release_type        : isReleaseBuildType(),
             //是否打印debug日志
-            is_debug_log : true,
+            is_debug_log           : true,
             //自动创建java文件时的包名 DynamicResConst类的包名
             create_java_pkg_name   : 'com.lalamove.huolala',
 
@@ -112,7 +112,7 @@ ext {
      * 1、2等效
      */
     dynamic_scan_so_map = [
-            demoSo : ['libdynamiclib.so'],
+            demoSo: ['libdynamiclib.so', 'libBaiduMapSDK_base_v7_5_0.so', 'libBaiduMapSDK_map_v7_5_0.so', 'libgnustl_shared.so', 'liblocSDK8b.so'],
     ]
 
     dynamic_so_config = [
@@ -157,7 +157,7 @@ ext {
             //true为mergeNativeLibs之后，stripDebugSymbols之前
             //false为stripDebugSymbols之后,package之前
             //strip可能导致不同as版本得到的so文件md5码不相同。
-            isTaskRunAfterMerge : true,
+            isTaskRunAfterMerge     : true,
             //debug状态下,mergeNativeLibs的task名称
             debugMergeNativeLibs    : "mergeDebugNativeLibs",
             //release状态下,mergeNativeLibs的task名称
@@ -167,17 +167,17 @@ ext {
             //release状态下,stripDebugSymbols的task名称
             releaseStripDebugSymbols: "stripReleaseDebugSymbols",
             //debug状态下，系统打包task名称
-            debugPackage : "packageDebug",
+            debugPackage            : "packageDebug",
             //release状态下，系统打包task名称
-            releasePackage : "packageRelease",
+            releasePackage          : "packageRelease",
             //debug状态下,mergeNativeLibs的输出目录
             debugNativeOutputPath   : "${projectDir}/sample_app/build/intermediates/merged_native_libs/debug/out/lib",
             //release状态下,mergeNativeLibs的输出目录
             releaseNativeOutputPath : "${projectDir}/sample_app/build/intermediates/merged_native_libs/release/out/lib",
             //debug状态下，,stripDebugSymbols的输出目录
-            debugStripOutputPath : "${projectDir}/sample_app/build/intermediates/stripped_native_libs/debug/out/lib",
+            debugStripOutputPath    : "${projectDir}/sample_app/build/intermediates/stripped_native_libs/debug/out/lib",
             //release状态下，,stripDebugSymbols的输出目录
-            releaseStripOutputPath : "${projectDir}/sample_app/build/intermediates/stripped_native_libs/release/out/lib",
+            releaseStripOutputPath  : "${projectDir}/sample_app/build/intermediates/stripped_native_libs/release/out/lib",
     ]
     //该闭包可以自动将文件上传到服务器，参数列表为资源id，资源文件路径
     //我们可以再次执行上传服务器操作，并返回对应的url。
@@ -188,8 +188,6 @@ ext {
             return 'http://url'
     }
 }
-
-
 
 
 /**
