@@ -31,6 +31,7 @@ public class DeleteAndCopySoTask implements ITask {
         project.afterEvaluate(new Action<Project>() {
             @Override
             public void execute(Project project) {
+                Log.debug(param, "DeleteAndCopySoTask.project.afterEvaluate() invoked.");
                 //插入到任务中间merged和strip so task之间
                 Task soFirstTask = TaskUtil.getSoFirstTask(project, param);
                 Task soSecondTask = TaskUtil.getSoSecondTask(project, param);
@@ -43,13 +44,16 @@ public class DeleteAndCopySoTask implements ITask {
                 });
                 soSecondTask.dependsOn(deleteTask);
                 deleteTask.dependsOn(soFirstTask);
+                /// DeleteAndCopySoTask# soFirstTask: mergeDebugNativeLibs,deleteTask:deleteAndCopySo,soSecondTask: stripDebugDebugSymbols
+                /// 执行顺序：mergeDebugNativeLibs -> deleteAndCopySo -> stripDebugDebugSymbols
+                Log.debug(param, "DeleteAndCopySoTask# soFirstTask: " + soFirstTask.getName() + ",deleteTask:" + deleteTask.getName() + ",soSecondTask: " + soSecondTask.getName());
             }
         });
     }
 
     private void deleteAndCopySo(DynamicParam param) {
         Log.debug(param, " DeleteAndCopySoTask start ");
-        //as编译输出的so路径
+        //as编译输出的so路径,位于sample_app/build/intermediates/stripped_native_libs/debug/out/lib
         String soDir = param.getSoTaskOutputPath();
         File soFile = new File(soDir);
         //如果as编译的so路径不存在，抛出异常
@@ -68,7 +72,8 @@ public class DeleteAndCopySoTask implements ITask {
 
     /**
      * 扫描as编译输出的so文件夹
-     * @param param Plugin 配置
+     *
+     * @param param              Plugin 配置
      * @param soCompileOutputDir as编译输出的so文件夹
      */
     private void scanSoAbiPath(DynamicParam param, File soCompileOutputDir) {
@@ -83,7 +88,8 @@ public class DeleteAndCopySoTask implements ITask {
 
     /**
      * 扫描as编译输出的so文件夹的子目录形如arm64-v8a,armeabi
-     * @param param Plugin 配置
+     *
+     * @param param     Plugin 配置
      * @param soAbiPath arm64-v8a,armeabi路径
      */
     private void scanSoFile(DynamicParam param, File soAbiPath) {
@@ -106,6 +112,7 @@ public class DeleteAndCopySoTask implements ITask {
             }
 
             if (isCopySo) {
+                /// Users/liyixin01/ggithub_repo/hll-dynamic-res-plugin/dynamic_res_store/input/so/demoSo_armeabi-v7a_so
                 String copySoDir = param.getInputSo() + File.separator + dirName;
                 FileUtil.createOrExistsDir(new File(copySoDir));
                 copySoDir = copySoDir + File.separator + soAbiPath.getName();

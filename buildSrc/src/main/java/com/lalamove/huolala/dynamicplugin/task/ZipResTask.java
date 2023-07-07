@@ -30,6 +30,9 @@ public class ZipResTask implements ITask {
         project.afterEvaluate(new Action<Project>() {
             @Override
             public void execute(final Project project) {
+                Log.debug(param, "ZipResTask.project.afterEvaluate() invoked.");
+
+                /// deleteAndCopyTask
                 Task beforeTask = getBeforeTask(project, param);
                 Task soSecondTask = TaskUtil.getSoSecondTask(project, param);
                 Task zipResTask = project.getTasks().create(PluginConst.Task.ZIP_RES);
@@ -41,6 +44,9 @@ public class ZipResTask implements ITask {
                 });
                 soSecondTask.dependsOn(zipResTask);
                 zipResTask.dependsOn(beforeTask);
+                /// beforeTask: deleteAndCopySo, soSecondTask:stripDebugDebugSymbols
+                /// 执行顺序是：deleteAndCopySo -> zipResTask -> stripDebugDebugSymbols
+                Log.debug(param, "ZipResTask# beforeTask: " + beforeTask.getName() + ", soSecondTask:" + soSecondTask.getName());
             }
         });
     }

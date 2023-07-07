@@ -80,7 +80,7 @@ public class TransformTask extends Transform implements ITask {
 
     @Override
     public void transform(TransformInvocation transformInvocation) throws TransformException, InterruptedException, IOException {
-        Log.debug(mParams, " TransformTask start ");
+        Log.debug(mParams, "Ethan:TransformTask start ");
         Collection<TransformInput> inputs = transformInvocation.getInputs();
         TransformOutputProvider output = transformInvocation.getOutputProvider();
         if (output != null) {

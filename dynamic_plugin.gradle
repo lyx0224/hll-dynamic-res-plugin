@@ -112,15 +112,15 @@ ext {
      * 1、2等效
      */
     dynamic_scan_so_map = [
-            demoSo: ['libdynamiclib.so', 'libBaiduMapSDK_base_v7_5_0.so', 'libBaiduMapSDK_map_v7_5_0.so', 'libgnustl_shared.so', 'liblocSDK8b.so'],
+            demoSo: ['libnativelib.so', 'libdynamiclib.so', 'libBaiduMapSDK_base_v7_5_0.so', 'libBaiduMapSDK_map_v7_5_0.so', 'libgnustl_shared.so', 'liblocSDK8b.so'],
     ]
 
     dynamic_so_config = [
             //so文件忽略列表，该表中的文件，不会被扫描。不在该列表中的文件都会被扫描
             // (dynamic_scan_so_map为空时，本列表才生效)
-            ignore_so_files: ["libmmkv.so"],
+            ignore_so_files: [],
             //so文件扫描abi目录，不在该目录下的so将不被扫描
-            scan_so_abis   : ["arm64-v8a", "armeabi-v7a"],
+            scan_so_abis   : ["arm64-v8a", "armeabi-v7a", "armeabi", "x86", "x86_64"],
             //拷贝出来的so文件夹前缀,ignore_so_files生效时使用,生成hll_armeabi-v7a_so.zip,hll_arm64-v8a_so.zip
             so_input_prefix: 'demoSo',
     ]

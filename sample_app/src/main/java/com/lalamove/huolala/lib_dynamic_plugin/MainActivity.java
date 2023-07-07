@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 mCarAnim.startAnim(DynamicResConst.FrameAnim.ANIM_CAR);
             }
         });
+
+        /// 动态加载so
         mSoTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
